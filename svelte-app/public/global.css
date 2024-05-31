@@ -1,3 +1,80 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --bg-color: #f6f8ff;
+    --text-color: #4b6a9b;
+    --card-bg: #fefefe;
+    --search-bg: #fefefe;
+    --button-bg: #0079ff;
+    --button-text: #ffffff;
+}
+
+.dark {
+    --bg-color: #141d2f;
+    --text-color: #ffffff;
+    --card-bg: #1e2a47;
+    --search-bg: #1e2a47;
+    --button-bg: #0079ff;
+    --button-text: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: var(--header-bg);
+}
+
+nav {
+    background-color: var(--nav-bg);
+}
+
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background-color: var(--search-bg);
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.search input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--text-color);
+    padding: 0.5rem;
+}
+
+.search button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}

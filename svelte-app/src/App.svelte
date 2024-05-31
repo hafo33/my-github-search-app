@@ -23,47 +23,83 @@
         width: 100px;
         height: 100px;
     }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .search {
+        display: flex;
+        align-items: center;
+        background-color: var(--search-bg);
+        border-radius: 5px;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .search input {
+        flex-grow: 1;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: var(--text-color);
+        padding: 0.5rem;
+    }
+    .search button {
+        background-color: var(--button-bg);
+        color: var(--button-text);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 </style>
 
 <header class="bg-blue-600 text-white p-4 flex justify-between items-center">
-    <h1 class="text-3xl">GitHub Search App</h1>
-    <button on:click={() => document.documentElement.classList.toggle('dark')} class="bg-gray-700 text-white p-2 rounded">Toggle Theme</button>
+    <h1 class="text-3xl">devfinder</h1>
+    <button on:click={() => document.documentElement.classList.toggle('dark')} class="bg-gray-700 text-white p-2 rounded">Light</button>
 </header>
 
-<nav class="bg-gray-800 text-white p-4">
-    <ul class="flex space-x-4">
-        <li><a href="#" class="hover:underline">Inicio</a></li>
-        <li><a href="#" class="hover:underline">Sobre Nosotros</a></li>
-        <li><a href="#" class="hover:underline">Contacto</a></li>
-    </ul>
-</nav>
-
 <main class="p-4 max-w-screen-lg mx-auto">
+    <section class="search">
+        <input type="text" bind:value={username} placeholder="Search GitHub username…" />
+        <button on:click={fetchUser}>Search</button>
+    </section>
     <section>
-        <h2 class="text-2xl mb-4">Buscar Usuario de GitHub</h2>
-        <form on:submit|preventDefault={fetchUser} class="mb-4 flex flex-col sm:flex-row items-stretch">
-            <input type="text" bind:value={username} class="border p-2 w-full sm:w-auto flex-grow" placeholder="Ingrese nombre de usuario">
-            <button type="submit" class="bg-blue-500 text-white p-2 mt-2 sm:mt-0 sm:ml-2">Buscar</button>
-        </form>
-        <div id="result" class="mt-4">
-            {#if user}
-                <div class="user-info p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
-                    <img src={user.avatar_url} alt={user.login} class="avatar mx-auto">
-                    <h2 class="text-2xl text-center mt-4">{user.login}</h2>
-                    <p class="text-center mt-2">{user.bio ? user.bio : 'No bio available'}</p>
-                    <ul class="mt-4">
-                        <li><strong>Repos:</strong> {user.public_repos}</li>
-                        <li><strong>Followers:</strong> {user.followers}</li>
-                        <li><strong>Following:</strong> {user.following}</li>
-                    </ul>
+        {#if user}
+            <div class="card">
+                <div class="flex items-center mb-4">
+                    <img src={user.avatar_url} alt={user.login} class="avatar mr-4">
+                    <div>
+                        <h2 class="text-2xl">{user.name}</h2>
+                        <p>@{user.login}</p>
+                        <p>Joined {new Date(user.created_at).toDateString()}</p>
+                    </div>
                 </div>
-            {:else if username.trim() !== ''}
-                <p>No se encontró ningún usuario.</p>
-            {/if}
-        </div>
+                <p class="mb-4">{user.bio ? user.bio : 'This profile has no bio'}</p>
+                <div class="flex justify-between bg-gray-100 p-4 rounded-lg">
+                    <div>
+                        <h3>Repos</h3>
+                        <p>{user.public_repos}</p>
+                    </div>
+                    <div>
+                        <h3>Followers</h3>
+                        <p>{user.followers}</p>
+                    </div>
+                    <div>
+                        <h3>Following</h3>
+                        <p>{user.following}</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p><i class="fas fa-map-marker-alt"></i> {user.location ? user.location : 'Not Available'}</p>
+                    <p><i class="fas fa-link"></i> {user.blog ? user.blog : 'Not Available'}</p>
+                    <p><i class="fab fa-twitter"></i> {user.twitter_username ? `@${user.twitter_username}` : 'Not Available'}</p>
+                    <p><i class="fas fa-building"></i> {user.company ? user.company : 'Not Available'}</p>
+                </div>
+            </div>
+        {:else if username.trim() !== ''}
+            <p>No se encontró ningún usuario.</p>
+        {/if}
     </section>
 </main>
-
-<footer class="bg-gray-800 text-white p-4 text-center">
-    &copy; 2024 GitHub Search App. Todos los derechos reservados.
-</footer>
