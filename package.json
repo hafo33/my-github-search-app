@@ -1,0 +1,15 @@
+{
+  "name": "github-search-app",
+  "version": "1.0.0",
+  "description": "Este proyecto es una aplicación de búsqueda de usuarios de GitHub utilizando la API de usuarios de GitHub.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
