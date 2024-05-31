@@ -3,8 +3,16 @@
     let user = null;
 
     async function fetchUser() {
+        if (username.trim() === '') {
+            user = null;
+            return;
+        }
         const response = await fetch(`https://api.github.com/users/${username}`);
-        user = await response.json();
+        if (response.ok) {
+            user = await response.json();
+        } else {
+            user = null;
+        }
     }
 </script>
 
@@ -49,6 +57,8 @@
                         <li><strong>Following:</strong> {user.following}</li>
                     </ul>
                 </div>
+            {:else if username.trim() !== ''}
+                <p>No se encontró ningún usuario.</p>
             {/if}
         </div>
     </section>
